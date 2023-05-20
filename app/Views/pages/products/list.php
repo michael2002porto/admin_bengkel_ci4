@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 <div class="card rounded-0">
     <div class="card-header">
-    <div class="d-flex w-100 justify-content-between">
+        <div class="d-flex w-100 justify-content-between">
             <div class="col-auto">
                 <div class="card-title h4 mb-0 fw-bolder">List of Products</div>
             </div>
@@ -18,13 +18,15 @@
                 <colgroup>
                     <col width="5%">
                     <col width="10%">
+                    <col width="10%">
                     <col width="15%">
                     <col width="40%">
-                    <col width="20%">
+                    <col width="10%">
                     <col width="10%">
                 </colgroup>
                 <thead>
                     <th class="p-1 text-center">#</th>
+                    <th class="p-1 text-center">Image</th>
                     <th class="p-1 text-center">Code</th>
                     <th class="p-1 text-center">Product</th>
                     <th class="p-1 text-center">Description</th>
@@ -32,20 +34,21 @@
                     <th class="p-1 text-center">Action</th>
                 </thead>
                 <tbody>
-                    <?php foreach($products as $row): ?>
+                    <?php foreach ($products as $row) : ?>
                         <tr>
                             <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
+                            <td class="px-2 py-1 align-middle"><img src="<?= base_url() . '/assets/img/' . $row['image'] ?>" class="img-fluid" alt="Image does not exist"></td>
                             <td class="px-2 py-1 align-middle"><?= $row['code'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['name'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['description'] ?></td>
-                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['price'],2) ?></td>
+                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['price'], 2) ?></td>
                             <td class="px-2 py-1 align-middle text-center">
-                                <a href="<?= base_url('Main/product_edit/'.$row['id']) ?>" class="mx-2 text-decoration-none text-primary"><i class="fa fa-edit"></i></a>
-                                <a href="<?= base_url('Main/product_delete/'.$row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Are you sure to delete <?= $row['code'] ?> - <?= $row['name'] ?> from list?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
+                                <a href="<?= base_url('Main/product_edit/' . $row['id']) ?>" class="mx-2 text-decoration-none text-primary"><i class="fa fa-edit"></i></a>
+                                <a href="<?= base_url('Main/product_delete/' . $row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Are you sure to delete <?= $row['code'] ?> - <?= $row['name'] ?> from list?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if(count($products) <= 0): ?>
+                    <?php if (count($products) <= 0) : ?>
                         <tr>
                             <td class="p-1 text-center" colspan="6">No result found</td>
                         </tr>

@@ -124,12 +124,17 @@ class Main extends BaseController
     }
     public function product_add(){
         if($this->request->getMethod() == 'post'){
+            $imageFile = $this->request->getFile('image');  // Ambil gambar
+            $newImageName = $imageFile->getRandomName(); // Generate nama file baru
+            $imageFile->move(ROOTPATH . '/assets/img', $newImageName); // Pindahkan ke folder img
+
             extract($this->request->getPost());
             $udata= [];
             $udata['code'] = $code;
             $udata['name'] = $name;
             $udata['description'] = $description;
             $udata['price'] = $price;
+            $udata['image'] = $newImageName;
             $checkCode = $this->prod_model->where('code',$code)->countAllResults();
             if($checkCode){
                 $this->session->setFlashdata('error',"Product Code Already Taken.");
@@ -189,11 +194,11 @@ class Main extends BaseController
         }
         return redirect()->to('Main/products');
     }
-    public function pos(){
+    public function shopping(){
         $this->data['page_title']="New Transaction";
         $this->data['products'] =  $this->prod_model->findAll();
      
-        return view('pages/pos/add', $this->data);
+        return view('pages/shopping/add', $this->data);
     }
 
     public function save_transaction(){
@@ -227,7 +232,7 @@ class Main extends BaseController
                 $this->tran_item_model->save($data2);
             }
             $this->session->setFlashdata('main_success',"Transaction has been saved successfully.");
-            return redirect()->to('Main/pos');
+            return redirect()->to('Main/shopping');
         }
     }
     public function transactions(){
@@ -240,7 +245,7 @@ class Main extends BaseController
                                     ->paginate($this->data['perPage']);
         $this->data['total_res'] = is_array($this->data['transactions'])? count($this->data['transactions']) : 0;
         $this->data['pager'] = $this->tran_model->pager;
-        return view('pages/pos/list', $this->data);
+        return view('pages/shopping/list', $this->data);
     }
 
     public function transaction_delete($id=''){
@@ -272,6 +277,6 @@ class Main extends BaseController
                                 ->where('transaction_id', $id)
                                 ->join('products', " transaction_items.product_id = products.id ", 'inner')
                                 ->findAll();
-        return view('pages/pos/view', $this->data);
+        return view('pages/shopping/view', $this->data);
     }
 }

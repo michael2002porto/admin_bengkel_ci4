@@ -14,13 +14,13 @@
     </div>
     <div class="card-body">
         <div class="container-fluid">
-            <form action="<?= base_url('Main/product_add') ?>" method="POST">
-                <?php if($session->getFlashdata('error')): ?>
+            <form action="<?= base_url('Main/product_add') ?>" method="POST" enctype="multipart/form-data">
+                <?php if ($session->getFlashdata('error')) : ?>
                     <div class="alert alert-danger rounded-0">
                         <?= $session->getFlashdata('error') ?>
                     </div>
                 <?php endif; ?>
-                <?php if($session->getFlashdata('success')): ?>
+                <?php if ($session->getFlashdata('success')) : ?>
                     <div class="alert alert-success rounded-0">
                         <?= $session->getFlashdata('success') ?>
                     </div>
@@ -31,15 +31,19 @@
                 </div>
                 <div class="mb-3">
                     <label for="name" class="control-label">Name</label>
-                    <input type="text" class="form-control rounded-0" id="name" name="name"  placeholder="Product 101" value="<?= !empty($request->getPost('name')) ? $request->getPost('name') : '' ?>" required="required">
+                    <input type="text" class="form-control rounded-0" id="name" name="name" placeholder="Product 101" value="<?= !empty($request->getPost('name')) ? $request->getPost('name') : '' ?>" required="required">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="control-label">Description</label>
-                    <textarea rows="3" class="form-control rounded-0" id="description" name="description" ><?= !empty($request->getPost('description')) ? $request->getPost('description') : '' ?></textarea>
+                    <textarea rows="3" class="form-control rounded-0" id="description" name="description"><?= !empty($request->getPost('description')) ? $request->getPost('description') : '' ?></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="control-label">Price</label>
                     <input type="number" step="any" class="form-control rounded-0 text-end" id="price" name="price" value="<?= !empty($request->getPost('price')) ? $request->getPost('price') : '' ?>" required="required">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
                 </div>
                 <div class="d-grid gap-1">
                     <button class="btn rounded-0 btn-primary bg-gradient">Save</button>

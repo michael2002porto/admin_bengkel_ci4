@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($page_title) ? $page_title.' | ' : "" ?><?= env('system_name') ?></title>
+    <title><?= isset($page_title) ? $page_title . ' | ' : "" ?><?= env('system_name') ?></title>
+
+    <!-- Icon -->
+    <link rel="icon" href="<?= base_url() ?>/assets/img/Workshop-icon.ico" type="image/ico">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,10 +26,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
-        html, body{
-            height:100%;
-            width:100%;
+        html,
+        body {
+            height: 100%;
+            width: 100%;
         }
+
         button#user-topnav-menu {
             background: #fff;
             border: 1px solid #b1b1b1;
@@ -37,46 +43,47 @@
     <?= $this->renderSection('custom_css') ?>
 
 </head>
+
 <body class="bg-dark bg-gradient bg-opacity-25">
     <nav class="navbar navbar-expand-md navbar-dark bg-primary bg-gradient">
-    <div class="container">
-        <a class="navbar-brand" href="<?= base_url() ?>"><?= env('short_name') ?></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link <?= isset($page_title) && $page_title == 'Home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Home</a>
-            </li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Products' ? 'active' : '' ?>" href="<?= base_url('Main/products') ?>">Products</a></li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'POS' ? 'active' : '' ?>" href="<?= base_url('Main/pos') ?>">POS</a></li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Transactions' ? 'active' : '' ?>" href="<?= base_url('Main/transactions') ?>">Transactions</a></li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Users</a></li>
-        </ul>
-        <div class="dropdown">
-            <button type='button' class="" id="user-topnav-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user rounded-circle border"></i> <?= $session->get('login_name') ?> <i class="fa fa-angle-down text-muted"></i></button>
-            <ul class="dropdown-menu" aria-labelledby="user-topnav-menu-items">
-                <li><a class="dropdown-item" href="<?= base_url('update_user') ?>"><i class="fa fa-cog text-muted"></i> Update User</a></li>
-                <li><a class="dropdown-item" href="<?= base_url('logout') ?>"><i class="fa fa-sign-out text-muted"></i> Logout</a></li>
-            </ul>
-        </div>
-    </div>
+        <div class="container">
+            <a class="navbar-brand" href="<?= base_url() ?>"><?= env('short_name') ?></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link <?= isset($page_title) && $page_title == 'Home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Home</a>
+                    </li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'Products' ? 'active' : '' ?>" href="<?= base_url('Main/products') ?>">Products</a></li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'Transactions' ? 'active' : '' ?>" href="<?= base_url('Main/transactions') ?>">History Transactions</a></li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Users</a></li>
+                </ul>
+                <div class="dropdown">
+                    <button type='button' class="" id="user-topnav-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user rounded-circle border"></i> <?= $session->get('login_name') ?> <i class="fa fa-angle-down text-muted"></i></button>
+                    <ul class="dropdown-menu" aria-labelledby="user-topnav-menu-items">
+                        <li><a class="dropdown-item" href="<?= base_url('update_user') ?>"><i class="fa fa-cog text-muted"></i> Update User</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url('logout') ?>"><i class="fa fa-sign-out text-muted"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
     </nav>
-    
+
     <div class="container py-4">
-            <?php if($session->getFlashdata('main_error')): ?>
-                <div class="alert alert-danger rounded-0">
-                    <?= $session->getFlashdata('main_error') ?>
-                </div>
-            <?php endif; ?>
-            <?php if($session->getFlashdata('main_success')): ?>
-                <div class="alert alert-success rounded-0">
-                    <?= $session->getFlashdata('main_success') ?>
-                </div>
-            <?php endif; ?>
+        <?php if ($session->getFlashdata('main_error')) : ?>
+            <div class="alert alert-danger rounded-0">
+                <?= $session->getFlashdata('main_error') ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($session->getFlashdata('main_success')) : ?>
+            <div class="alert alert-success rounded-0">
+                <?= $session->getFlashdata('main_success') ?>
+            </div>
+        <?php endif; ?>
         <?= $this->renderSection('content') ?>
     </div>
 </body>
 <?= $this->renderSection('custom_js') ?>
+
 </html>
