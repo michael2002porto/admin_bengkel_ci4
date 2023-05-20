@@ -42,8 +42,15 @@
                     <input type="number" step="any" class="form-control rounded-0 text-end" id="price" name="price" value="<?= !empty($request->getPost('price')) ? $request->getPost('price') : '' ?>" required="required">
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
+                    <label for="image" class="control-label">Image</label>
+                    <div class="row">
+                        <div class="col-2">
+                            <img id="blah" src="https://bit.ly/3ubuq5o" class="img-fluid" alt="your image" />
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" type="file" id="image" name="image" accept="image/*" required onchange="readURL(this);">
+                        </div>
+                    </div>
                 </div>
                 <div class="d-grid gap-1">
                     <button class="btn rounded-0 btn-primary bg-gradient">Save</button>
@@ -52,4 +59,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <?= $this->endSection() ?>
