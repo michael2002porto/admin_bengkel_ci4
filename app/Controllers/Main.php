@@ -210,6 +210,10 @@ class Main extends BaseController
             $this->session->setFlashdata('main_error', "Product Deletion failed due to unknown ID.");
             return redirect()->to('Main/products');
         }
+        $oldImageName = $this->prod_model->where("id ='{$id}'")->first()['image'];  // Ambil nama file lama
+        if (file_exists(ROOTPATH . '/assets/img/' . $oldImageName) && !empty($oldImageName)) {
+            unlink(ROOTPATH . '/assets/img/' . $oldImageName);    // Hapus gambar lama
+        }
         $delete = $this->prod_model->where('id', $id)->delete();
         if ($delete) {
             $this->session->setFlashdata('main_success', "Product has been deleted successfully.");
