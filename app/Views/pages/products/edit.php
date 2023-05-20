@@ -14,13 +14,13 @@
     </div>
     <div class="card-body">
         <div class="container-fluid">
-            <form action="<?= base_url('Main/product_edit/'.(isset($product['id'])? $product['id'] : '')) ?>" method="POST">
-                <?php if($session->getFlashdata('error')): ?>
+            <form action="<?= base_url('Main/product_edit/' . (isset($product['id']) ? $product['id'] : '')) ?>" method="POST" enctype="multipart/form-data">
+                <?php if ($session->getFlashdata('error')) : ?>
                     <div class="alert alert-danger rounded-0">
                         <?= $session->getFlashdata('error') ?>
                     </div>
                 <?php endif; ?>
-                <?php if($session->getFlashdata('success')): ?>
+                <?php if ($session->getFlashdata('success')) : ?>
                     <div class="alert alert-success rounded-0">
                         <?= $session->getFlashdata('success') ?>
                     </div>
@@ -35,12 +35,23 @@
                 </div>
                 <div class="mb-3">
                     <label for="description" class="control-label">Description</label>
-                    <textarea rows="3" class="form-control rounded-0" id="description" name="description" autofocus placeholder="(optional)" value="" ><?= !empty($product['description']) ? $product['description'] : '' ?></textarea>
+                    <textarea rows="3" class="form-control rounded-0" id="description" name="description" autofocus placeholder="(optional)" value=""><?= !empty($product['description']) ? $product['description'] : '' ?></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="price" class="control-label">Price</label>
                     <input type="number" step="any" class="form-control rounded-0" id="price" name="price" autofocus placeholder="Smith" value="<?= !empty($product['price']) ? $product['price'] : '' ?>" required="required">
-                
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="control-label">Image</label>
+                    <div class="row">
+                        <div class="col-2">
+                            <img id="blah" src="<?= !empty($product['image']) ? base_url() . '/assets/img/' . $product['image'] : 'https://bit.ly/3ubuq5o' ?>" class="img-fluid" alt="your image" />
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" type="file" id="image" name="image" accept="image/*" onchange="readURL(this);">
+                        </div>
+                    </div>
+                </div>
                 <div class="d-grid gap-1">
                     <button class="btn rounded-0 btn-primary bg-gradient">Update</button>
                 </div>
@@ -48,4 +59,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <?= $this->endSection() ?>
