@@ -1,19 +1,37 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 11:04 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.5
+-- Generation Time: May 22, 2023 at 03:19 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `pos_db`
+-- Database: `bengkel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch_offices`
+--
+
+CREATE TABLE `branch_offices` (
+  `id` int(11) NOT NULL,
+  `office_name` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -54,30 +72,33 @@ CREATE TABLE `products` (
   `description` text DEFAULT '',
   `price` float(12,2) NOT NULL DEFAULT 0.00,
   `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `code`, `name`, `description`, `price`, `created_at`, `updated_at`) VALUES
-(1, '1001', 'Product 101', 'Sample Product #101', 55.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(2, '1002', 'Product 102', 'Sample Product #102', 150.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(4, '1004', 'Product 104', 'Sample Product #104', 23.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(5, '1005', 'Product 105', 'Sample Product #105', 60.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(6, '1006', 'Product 106', 'Sample Product #106', 205.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(7, '1007', 'Product 107', 'Sample Product #107', 45.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(8, '1008', 'Product 108', 'Sample Product #108', 75.23, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(9, '1009', 'Product 109', 'Sample Product #109', 106.55, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(10, '1010', 'Product 110', 'Sample Product #110', 375.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(11, '1011', 'Product 111', 'Sample Product #111', 87.45, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(12, '1012', 'Product 112', 'Sample Product #112', 104.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(13, '1013', 'Product 113', 'Sample Product #113', 55.33, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(14, '1014', 'Product 114', 'Sample Product #114', 88.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(15, '1015', 'Product 115', 'Sample Product #115', 67.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(16, '1016', 'Product 116', 'Sample Product #116', 195.85, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(17, '1017', 'Product 117', 'Sample Product #117', 499.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07');
+INSERT INTO `products` (`id`, `code`, `name`, `description`, `price`, `created_at`, `updated_at`, `image`) VALUES
+(1, '1001', 'Product 101', 'Sample Product #101', 55.50, '2022-06-22 16:42:07', '2023-05-20 23:54:26', '1684601666_5e3436b4e6e0ad8911c9.png'),
+(2, '1002', 'Product 102', 'Sample Product #102', 150.00, '2022-06-22 16:42:07', '2023-05-20 23:54:09', '1684601649_61d2bba3845c845f7e14.png'),
+(4, '1004', 'Product 104', 'Sample Product #104', 23.50, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(5, '1005', 'Product 105', 'Sample Product #105', 60.50, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(6, '1006', 'Product 106', 'Sample Product #106', 205.25, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(7, '1007', 'Product 107', 'Sample Product #107', 45.00, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(8, '1008', 'Product 108', 'Sample Product #108', 75.23, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(9, '1009', 'Product 109', 'Sample Product #109', 106.55, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(10, '1010', 'Product 110', 'Sample Product #110', 375.50, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(11, '1011', 'Product 111', 'Sample Product #111', 87.45, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(12, '1012', 'Product 112', 'Sample Product #112', 104.99, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(13, '1013', 'Product 113', 'Sample Product #113', 55.33, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(14, '1014', 'Product 114', 'Sample Product #114', 88.99, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(15, '1015', 'Product 115', 'Sample Product #115', 67.25, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(16, '1016', 'Product 116', 'Sample Product #116', 195.85, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(17, '1017', 'Product 117', 'Sample Product #117', 499.99, '2022-06-22 16:42:07', '2023-05-20 23:50:57', NULL),
+(19, 'tes', 'Michael Natanael', '', 234.00, '2023-05-20 22:35:05', '2023-05-20 23:50:57', NULL),
+(21, 'tes12', 'Michael Natanael', '', 800999.00, '2023-05-20 23:23:23', '2023-05-20 23:50:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -101,7 +122,8 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`id`, `code`, `customer`, `total_amount`, `tendered`, `created_at`, `updated_at`) VALUES
 (1, '2022062200001', 'Mark Cooper', 505.50, 600.00, '2022-06-22 16:42:41', '2022-06-22 16:42:41'),
-(2, '2022062200002', 'Samantha', 1285.00, 1300.00, '2022-06-22 16:43:00', '2022-06-22 16:43:00');
+(2, '2022062200002', 'Samantha', 1285.00, 1300.00, '2022-06-22 16:43:00', '2022-06-22 16:43:00'),
+(4, '2023051500001', 'Michael', 502.50, 600.00, '2023-05-15 10:42:45', '2023-05-15 10:42:45');
 
 -- --------------------------------------------------------
 
@@ -126,7 +148,9 @@ INSERT INTO `transaction_items` (`transaction_id`, `product_id`, `price`, `quant
 (1, 1, 55.50, 1, '2022-06-22 16:42:41', '2022-06-22 16:42:41'),
 (1, 2, 150.00, 3, '2022-06-22 16:42:41', '2022-06-22 16:42:41'),
 (2, 11, 87.45, 10, '2022-06-22 16:43:00', '2022-06-22 16:43:00'),
-(2, 6, 205.25, 2, '2022-06-22 16:43:00', '2022-06-22 16:43:00');
+(2, 6, 205.25, 2, '2022-06-22 16:43:00', '2022-06-22 16:43:00'),
+(4, 1, 55.50, 5, '2023-05-15 10:42:45', '2023-05-15 10:42:45'),
+(4, 7, 45.00, 5, '2023-05-15 10:42:45', '2023-05-15 10:42:45');
 
 -- --------------------------------------------------------
 
@@ -149,11 +173,18 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'Administrator', 'admin@mail.com', '$2y$10$74KR7BL3HBoPFrojMX9y.OMASdwNgT/CNwIhA2fRkpBDvs/S/T1sS', '2022-06-22 16:42:05', '2022-06-22 16:42:05'),
-(2, 'Mark Cooper', 'mcooper@mail.com', '$2y$10$EAclL..4GhUrXmkSixth8OoYasqJRcX.Qa2I4TqX1mz9v7gSmEMzW', '2022-06-22 17:04:27', '2022-06-22 17:04:27');
+(2, 'Mark Cooper', 'mcooper@mail.com', '$2y$10$EAclL..4GhUrXmkSixth8OoYasqJRcX.Qa2I4TqX1mz9v7gSmEMzW', '2022-06-22 17:04:27', '2022-06-22 17:04:27'),
+(3, 'Michael Natanael', 'michael.natanael.tik21@mhsw.pnj.ac.id', '$2y$10$rZKRYJHa1F1aD7PC5jhIL.AZvRmiflI0kgRIiPPCZ1gNBMmeyT1Ui', '2023-05-15 10:43:25', '2023-05-15 10:43:25');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `branch_offices`
+--
+ALTER TABLE `branch_offices`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -191,6 +222,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `branch_offices`
+--
+ALTER TABLE `branch_offices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -200,19 +237,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -225,3 +262,7 @@ ALTER TABLE `transaction_items`
   ADD CONSTRAINT `transaction_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `transaction_items_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
