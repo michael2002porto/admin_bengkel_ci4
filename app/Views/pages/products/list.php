@@ -37,7 +37,7 @@
                     <?php foreach ($products as $row) : ?>
                         <tr>
                             <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
-                            <td class="px-2 py-1 align-middle"><img src="<?= base_url() . '/assets/img/' . $row['image'] ?>" class="img-fluid" alt="Image does not exist"></td>
+                            <td class="px-2 py-1 align-middle"><img src="<?= ROOTPATH . '/assets/img/' . $row['image'] ?>" class="img-fluid" alt="Image does not exist"></td>
                             <td class="px-2 py-1 align-middle"><?= $row['code'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['name'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['description'] ?></td>

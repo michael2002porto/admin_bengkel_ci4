@@ -8,7 +8,7 @@
     <title><?= isset($page_title) ? $page_title . ' | ' : "" ?><?= env('system_name') ?></title>
 
     <!-- Icon -->
-    <link rel="icon" href="<?= base_url() ?>/assets/img/Workshop-icon.ico" type="image/ico">
+    <link rel="icon" href="<?= ROOTPATH ?>/assets/img/Workshop-icon.ico" type="image/ico">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
