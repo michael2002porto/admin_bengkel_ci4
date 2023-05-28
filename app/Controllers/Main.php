@@ -134,7 +134,7 @@ class Main extends BaseController
         if ($this->request->getMethod() == 'post') {
             $imageFile = $this->request->getFile('image');  // Ambil gambar
             $newImageName = $imageFile->getRandomName(); // Generate nama file baru
-            $imageFile->move('img', $newImageName); // Pindahkan ke folder img
+            $imageFile->move('public/img', $newImageName); // Pindahkan ke folder img
 
             extract($this->request->getPost());
             $udata = [];
@@ -173,7 +173,7 @@ class Main extends BaseController
 
                 $imageFile = $this->request->getFile('image');  // Ambil gambar
                 $newImageName = $imageFile->getRandomName(); // Generate nama file baru
-                $imageFile->move('img', $newImageName); // Pindahkan ke folder img
+                $imageFile->move('public/img', $newImageName); // Pindahkan ke folder img
             }
 
             extract($this->request->getPost());
