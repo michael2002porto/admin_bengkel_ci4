@@ -134,7 +134,7 @@ class Main extends BaseController
         if ($this->request->getMethod() == 'post') {
             $imageFile = $this->request->getFile('image');  // Ambil gambar
             $newImageName = $imageFile->getRandomName(); // Generate nama file baru
-            $imageFile->move(ROOTPATH . '/assets/img', $newImageName); // Pindahkan ke folder img
+            $imageFile->move('img', $newImageName); // Pindahkan ke folder img
 
             extract($this->request->getPost());
             $udata = [];
@@ -167,13 +167,13 @@ class Main extends BaseController
         if ($this->request->getMethod() == 'post') {
             if (empty($_FILES['image']['error'])) {
                 $oldImageName = $this->prod_model->where("id ='{$id}'")->first()['image'];  // Ambil nama file lama
-                if (file_exists(ROOTPATH . '/assets/img/' . $oldImageName) && !empty($oldImageName)) {
-                    unlink(ROOTPATH . '/assets/img/' . $oldImageName);    // Hapus gambar lama
+                if (file_exists(base_url() . '/public/img/' . $oldImageName) && !empty($oldImageName)) {
+                    unlink(base_url() . '/public/img/' . $oldImageName);    // Hapus gambar lama
                 }
 
                 $imageFile = $this->request->getFile('image');  // Ambil gambar
                 $newImageName = $imageFile->getRandomName(); // Generate nama file baru
-                $imageFile->move(ROOTPATH . '/assets/img', $newImageName); // Pindahkan ke folder img
+                $imageFile->move('img', $newImageName); // Pindahkan ke folder img
             }
 
             extract($this->request->getPost());
@@ -211,8 +211,8 @@ class Main extends BaseController
             return redirect()->to('Main/products');
         }
         $oldImageName = $this->prod_model->where("id ='{$id}'")->first()['image'];  // Ambil nama file lama
-        if (file_exists(ROOTPATH . '/assets/img/' . $oldImageName) && !empty($oldImageName)) {
-            unlink(ROOTPATH . '/assets/img/' . $oldImageName);    // Hapus gambar lama
+        if (file_exists(base_url() . '/public/img/' . $oldImageName) && !empty($oldImageName)) {
+            unlink(base_url() . '/public/img/' . $oldImageName);    // Hapus gambar lama
         }
         $delete = $this->prod_model->where('id', $id)->delete();
         if ($delete) {

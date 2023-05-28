@@ -22,9 +22,10 @@
                     <th class="p-1 text-center">Action</th>
                 </thead>
                 <tbody>
+                    <?php $i = 0; ?>
                     <?php foreach($users as $row): ?>
                         <tr>
-                            <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
+                            <th class="p-1 text-center align-middle"><?= $i + (($page * $perPage) - $perPage +1) ?></th>
                             <td class="px-2 py-1 align-middle"><?= $row['name'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['email'] ?></td>
                             <td class="px-2 py-1 align-middle text-center">
@@ -32,6 +33,7 @@
                                 <a href="<?= base_url('Main/user_delete/'.$row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Are you sure to delete <?= $row['email'] ?> from list?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
+                        <?php $i++; ?>
                     <?php endforeach; ?>
                     <?php if(count($users) <= 0): ?>
                         <tr>

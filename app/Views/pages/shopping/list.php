@@ -35,9 +35,10 @@
                     <th class="p-1 text-center">Action</th>
                 </thead>
                 <tbody>
+                    <?php $i = 0; ?>
                     <?php foreach ($transactions as $row) : ?>
                         <tr>
-                            <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
+                            <th class="p-1 text-center align-middle"><?= $i + (($page * $perPage) - $perPage +1) ?></th>
                             <td class="px-2 py-1 align-middle"><?= date("Y-m-d h:i A", strtotime($row['created_at'])) ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['code'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['customer'] ?></td>
@@ -48,6 +49,7 @@
                                 <a href="<?= base_url('Main/transaction_delete/' . $row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Are you sure to delete <?= $row['code'] ?> from list?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
+                        <?php $i++; ?>
                     <?php endforeach; ?>
                     <?php if (count($transactions) <= 0) : ?>
                         <tr>

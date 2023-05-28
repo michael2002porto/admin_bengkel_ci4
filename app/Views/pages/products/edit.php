@@ -45,7 +45,7 @@
                     <label for="image" class="control-label">Image</label>
                     <div class="row">
                         <div class="col-2">
-                            <img id="blah" src="<?= !empty($product['image']) ? ROOTPATH . '/assets/img/' . $product['image'] : 'https://bit.ly/3ubuq5o' ?>" class="img-fluid" alt="your image" />
+                            <img id="blah" src="<?= !empty($product['image']) ? base_url() . '/public/img/' . $product['image'] : 'https://bit.ly/3ubuq5o' ?>" class="img-fluid" alt="your image" />
                         </div>
                         <div class="col-10">
                             <input class="form-control" type="file" id="image" name="image" accept="image/*" onchange="readURL(this);">
