@@ -59,6 +59,7 @@
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'Products' ? 'active' : '' ?>" href="<?= base_url('Main/products') ?>">Products</a></li>
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'Transactions' ? 'active' : '' ?>" href="<?= base_url('Main/transactions') ?>">History Transactions</a></li>
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Users</a></li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'Branch Offices' ? 'active' : '' ?>" href="<?= base_url('Main/branch_offices') ?>">Branch Offices</a></li>
                 </ul>
                 <div class="dropdown">
                     <button type='button' class="" id="user-topnav-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user rounded-circle border"></i> <?= $session->get('login_name') ?> <i class="fa fa-angle-down text-muted"></i></button>

@@ -51,6 +51,8 @@ $routes->group('Main', ['filter'=>'authenticate'], static function($routes){
     $routes->get('(:segment)/(:any)', 'Main::$1/$2');
     $routes->match(['post'], 'user_add', 'Main::user_add');
     $routes->match(['post'], 'user_edit/(:num)', 'Main::user_edit/$1');
+    $routes->match(['post'], 'branch_office_add', 'Main::branch_office_add');
+    $routes->match(['post'], 'branch_office_edit/(:num)', 'Main::branch_office_edit/$1');
     $routes->match(['post'], 'product_edit/(:num)', 'Main::product_edit/$1');
     $routes->match(['post'], 'product_add', 'Main::product_add/$1');
     $routes->match(['post'], 'save_transaction', 'Main::save_transaction');

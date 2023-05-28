@@ -6,6 +6,7 @@ use App\Models\Auth;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
+use App\Models\BranchOffice;
 
 class Main extends BaseController
 {
@@ -19,12 +20,17 @@ class Main extends BaseController
         $this->prod_model = new Product;
         $this->tran_model = new Transaction;
         $this->tran_item_model = new TransactionItem;
+        $this->bran_model = new BranchOffice;
         $this->data = ['session' => $this->session, 'request' => $this->request];
     }
 
     public function index()
     {
         $this->data['page_title'] = "Home";
+        $this->data['jumlah_produk'] = $this->prod_model->countAllResults();
+        $this->data['jumlah_transaksi'] = $this->tran_model->countAllResults();
+        $this->data['jumlah_user'] = $this->auth_model->countAllResults();
+        $this->data['jumlah_cabang'] = $this->bran_model->countAllResults();
         return view('pages/home', $this->data);
     }
 
@@ -116,6 +122,84 @@ class Main extends BaseController
             $this->session->setFlashdata('main_error', "user Deletion failed due to unknown ID.");
         }
         return redirect()->to('Main/users');
+    }
+
+    public function branch_offices()
+    {
+        $this->data['page_title'] = "Branch Offices";
+        $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
+        $this->data['perPage'] =  10;
+        $this->data['total'] =  $this->bran_model->where("id != '{$this->session->login_id}'")->countAllResults();
+        $this->data['branch_offices'] = $this->bran_model->where("id != '{$this->session->login_id}'")->paginate($this->data['perPage']);
+        $this->data['total_res'] = is_array($this->data['branch_offices']) ? count($this->data['branch_offices']) : 0;
+        $this->data['pager'] = $this->bran_model->pager;
+        return view('pages/branch_offices/list', $this->data);
+    }
+    public function branch_office_add()
+    {
+        if ($this->request->getMethod() == 'post') {
+            extract($this->request->getPost());
+            $udata = [];
+            $udata['office_name'] = $office_name;
+            $udata['location'] = $location;
+            $checkName = $this->bran_model->where('office_name', $office_name)->countAllResults();
+            if ($checkName > 0) {
+                $this->session->setFlashdata('error', "Branch Office Name Already Taken.");
+            } else {
+                $save = $this->bran_model->save($udata);
+                if ($save) {
+                    $this->session->setFlashdata('main_success', "User Details has been updated successfully.");
+                    return redirect()->to('Main/branch_offices');
+                } else {
+                    $this->session->setFlashdata('error', "User Details has failed to update.");
+                }
+            }
+        }
+
+        $this->data['page_title'] = "Add Branch Office";
+        return view('pages/branch_offices/add', $this->data);
+    }
+    public function branch_office_edit($id = '')
+    {
+        if (empty($id))
+            return redirect()->to('Main/branch_offices');
+        if ($this->request->getMethod() == 'post') {
+            extract($this->request->getPost());
+            $udata = [];
+            $udata['office_name'] = $office_name;
+            $udata['location'] = $location;
+            $checkName = $this->bran_model->where('office_name', $office_name)->where('id!=', $id)->countAllResults();
+            if ($checkName > 0) {
+                $this->session->setFlashdata('error', "Branch Office Name Already Taken.");
+            } else {
+                $update = $this->bran_model->where('id', $id)->set($udata)->update();
+                if ($update) {
+                    $this->session->setFlashdata('success', "Branch Office Details has been updated successfully.");
+                    return redirect()->to('Main/branch_office_edit/' . $id);
+                } else {
+                    $this->session->setFlashdata('error', "Branch Office Details has failed to update.");
+                }
+            }
+        }
+
+        $this->data['page_title'] = "Edit Branch Office";
+        $this->data['branch_office'] = $this->bran_model->where("id ='{$id}'")->first();
+        return view('pages/branch_offices/edit', $this->data);
+    }
+
+    public function branch_office_delete($id = '')
+    {
+        if (empty($id)) {
+            $this->session->setFlashdata('main_error', "Branch Office Deletion failed due to unknown ID.");
+            return redirect()->to('Main/branch_offices');
+        }
+        $delete = $this->bran_model->where('id', $id)->delete();
+        if ($delete) {
+            $this->session->setFlashdata('main_success', "Branch Office has been deleted successfully.");
+        } else {
+            $this->session->setFlashdata('main_error', "Branch Office Deletion failed due to unknown ID.");
+        }
+        return redirect()->to('Main/branch_offices');
     }
 
     public function products()
